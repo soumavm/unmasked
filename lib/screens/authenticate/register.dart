@@ -26,28 +26,47 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
-      backgroundColor: Colors.brown[100],
-      appBar: AppBar(
-        backgroundColor: Colors.brown[400],
-        elevation: 0,
-        title: Text('Sign Up to Unmasked'),
-        actions: <Widget>[
-          FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('Sign in'),
-              onPressed: (){
-                widget.toggleView();
-              }
-          )
-        ],
-      ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [Colors.red[200], Colors.white],
+              end: FractionalOffset.topCenter,
+              begin: FractionalOffset.bottomCenter,
+              stops: [0.0,1.0],
+              tileMode: TileMode.clamp,
+            )
+        ),
         child: Form(
           key: _formKey,
             child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Container(
+                    height: 130.0,
+                    width: 130.0,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/logo.png"),
+                            fit: BoxFit.values[1]
+                        ),
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 15.0,
+                            spreadRadius: 3.0,
+                          ),
+                        ]
+                    ),
+                  ),
                   SizedBox(height:20),
+                  Text(
+                      "Register to Unmasked",
+                      style: TextStyle(color: Colors.grey[700], fontSize: 17)
+                  ),
+                  SizedBox(height:30),
                   TextFormField(
                     decoration: textInputDecoration.copyWith(hintText: 'Email'),
                     validator: (val) => val.isEmpty ? 'Enter an email' : null,
@@ -64,14 +83,24 @@ class _RegisterState extends State<Register> {
                       setState(() => password = val);
                     },
                   ),
-                  SizedBox(height:20),
-                  RaisedButton(
-                      color: Colors.pink[400],
-                      child: Text(
-                        'Register',
-                        style: TextStyle(color:Colors.white),
+                  SizedBox(height:30),
+                  GestureDetector(
+                      child: Container(
+                        width: 1000,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color:Colors.red,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              "Sign Up",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white)
+                          ),
+                        ),
                       ),
-                      onPressed: () async {
+                      onTap: () async {
                         if (_formKey.currentState.validate()) {
                           setState(() => loading = true);
                           dynamic result = await _auth

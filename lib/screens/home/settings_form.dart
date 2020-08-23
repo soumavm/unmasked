@@ -28,7 +28,9 @@ class _SettingsFormState extends State<SettingsForm> {
       stream: DatabaseService(uid: user.uid).userData,
       builder: (context, snapshot) {//snapshot is a reference to the data coming down the stream
         if(snapshot.hasData){
+
           UserData userData = snapshot.data;
+
           return Form(
               key: _formKey,
               child: Column(
@@ -74,7 +76,17 @@ class _SettingsFormState extends State<SettingsForm> {
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () async {
-                          print(_currentName);
+                          if(_formKey.currentState.validate()){
+                            await DatabaseService(uid:user.uid).updateUserData(
+                                _currentEmployeeId ?? userData.employeeId,
+                                _currentName ?? userData.name,
+                                _currentEmail ?? userData.email,
+                                _currentPhoneNumber ?? userData.phoneNumber,
+                                _currentImage ?? userData.image,
+                            );
+                            Navigator.pop(context);
+
+                          }
                         }
                     )
                   ]

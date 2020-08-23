@@ -5,6 +5,8 @@ import 'package:unmasked/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:unmasked/screens/home/employee_list.dart';
 import 'package:unmasked/models/employee.dart';
+import 'package:unmasked/screens/settings/navbar.dart';
+import 'package:unmasked/screens/authenticate/add_user.dart';
 
 class Home extends StatelessWidget {
 
@@ -16,35 +18,43 @@ class Home extends StatelessWidget {
       showModalBottomSheet(context: context, builder: (context){
         return Container(
           padding: EdgeInsets.symmetric(vertical: 20,horizontal: 60),
-          child: SettingsForm(),
+          child: AddUser(),
         );
       });
     }
 
+    void _showNavBar(){
+      Container(
+        child: NavBar()
+      );
+    }
+
+
     return StreamProvider<List<Employee>>.value(
       value: DatabaseService().employees,
       child: Scaffold(
-        backgroundColor: Colors.brown[50],
+        backgroundColor: Colors.red[50],
         appBar: AppBar(
-          title: Text('Brew Crew'),
-          backgroundColor: Colors.brown[400],
+          title: Text('User Database'),
+          backgroundColor: Colors.red[400],
           elevation: 0.0,
           actions: <Widget>[
             FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('logout'),
-              onPressed: () async{
-                await _auth.signOut();
-              },
-            ),
-            FlatButton.icon(
               icon: Icon(Icons.settings),
-              label: Text('Settings'),
+              label: Text('User Settings'),
               onPressed: () => _showSettingsPanel(),
             )
           ]
         ),
-          body: EmployeeList(),
+          body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/gradient.png'),
+                  fit: BoxFit.cover,
+              ),
+            ),
+              child: EmployeeList()
+          ),
       ),
     );
   }

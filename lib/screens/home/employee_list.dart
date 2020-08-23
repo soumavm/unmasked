@@ -12,9 +12,8 @@ class _EmployeeListState extends State<EmployeeList> {
   @override
   Widget build(BuildContext context) {
 
-    final employees = Provider.of<List<Employee>>(context);
-
-    return ListView.builder(
+    final employees = Provider.of<List<Employee>>(context) ?? [];
+    return ListView.builder (
       itemCount: employees.length,
       itemBuilder: (context,index) {
         return EmployeeTile(employee: employees[index]);

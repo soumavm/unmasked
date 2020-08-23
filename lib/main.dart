@@ -4,6 +4,7 @@ import 'package:unmasked/models/user.dart';
 import 'package:unmasked/screens/authenticate/authenticate.dart';
 import 'package:unmasked/screens/wrapper.dart';
 import 'package:unmasked/services/auth.dart';
+import 'screens/home/start.dart';
 
 void main() {
   runApp(MyApp());

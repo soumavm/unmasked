@@ -60,6 +60,12 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // Add the dependency for the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+
+    // Add the dependencies for any other desired Firebase products
+     implementation 'com.google.firebase:firebase-auth:19.3.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
